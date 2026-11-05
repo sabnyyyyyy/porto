@@ -1,0 +1,350 @@
+@import 'tailwindcss';
+
+@theme {
+  --breakpoint-m: 810px;
+  --breakpoint-l: 1200px;
+  --font-sans: 'Geist', 'Geist Fallback', ui-sans-serif, system-ui, sans-serif;
+  --color-white-token: #fff;
+  --color-black-token: #000;
+  --color-neutral-50: #f7f7f7;
+  --color-neutral-900: #111;
+  --color-glow-orange: #f74d04;
+  --color-glow-red: #cb2602;
+  --color-glow-deep: #870f01;
+  --color-glow-maroon: #400903;
+  --color-glow-teal: #017e99;
+  --color-glow-navy: #011e2d;
+}
+
+:root {
+  --hero-duration: 1.3s;
+  --hero-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --slant: 8.4vw;
+}
+
+@layer base {
+html {
+  background: #000;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  overflow-x: clip;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: #000;
+  background: #000;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: #f74d04;
+  color: #fff;
+}
+}
+
+/* ---------- Typography ---------- */
+@layer components {
+  .type-heading-1 {
+    font-size: clamp(88px, 16vw, 230px);
+    line-height: 0.82;
+    letter-spacing: -0.045em;
+    font-weight: 700;
+  }
+  .type-heading-2 {
+    font-size: 36px;
+    line-height: 36px;
+    letter-spacing: -2.1px;
+  }
+  .type-heading-3 {
+    font-size: 36px;
+    line-height: 36px;
+    letter-spacing: -2.1px;
+  }
+  .type-heading-4 {
+    font-size: 40px;
+    line-height: 40px;
+    letter-spacing: -1.7px;
+  }
+  .type-body-1 {
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: -0.5px;
+  }
+  .type-body-3 {
+    font-size: 15px;
+    line-height: 20.5px;
+    letter-spacing: -0.3px;
+  }
+  .type-body-5 {
+    font-size: 13.5px;
+    line-height: 19px;
+    letter-spacing: -0.2px;
+  }
+  .type-body-6 {
+    font-size: 12.5px;
+    line-height: 14px;
+    font-weight: 600;
+  }
+  @media (min-width: 810px) {
+    .type-heading-2 {
+      font-size: 70px;
+      line-height: 70px;
+      letter-spacing: -3px;
+    }
+    .type-heading-3 {
+      font-size: 56px;
+      line-height: 56px;
+    }
+    .type-heading-4 {
+      font-size: 56px;
+      line-height: 56px;
+    }
+  }
+  @media (min-width: 1200px) {
+    .type-heading-2 {
+      font-size: 100px;
+      line-height: 100px;
+    }
+    .type-heading-3 {
+      font-size: 70px;
+      line-height: 70px;
+    }
+  }
+}
+
+/* ---------- Entrance animation (hero + generic) ---------- */
+@keyframes enter {
+  0% {
+    opacity: var(--enter-opacity, 0.001);
+    transform: translate3d(0, var(--enter-y, 0), 0) scale(var(--enter-scale, 1));
+  }
+}
+.animate-enter {
+  animation: enter var(--enter-duration, 0.5s) var(--enter-ease, cubic-bezier(0.44, 0, 0.34, 0.98))
+    var(--enter-delay, 0s) both;
+}
+
+@keyframes letter-rise {
+  0% {
+    transform: translateY(105%);
+  }
+}
+.wordmark-letter {
+  display: inline-block;
+  animation: letter-rise var(--hero-duration) var(--hero-ease) both;
+  animation-delay: calc(var(--wordmark-delay, 0.6s) + var(--i) * 80ms);
+}
+
+/* ---------- Scroll reveal ---------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, var(--y, 28px), 0);
+  transition:
+    opacity 0.9s var(--ease) var(--d, 0s),
+    transform 1.2s var(--ease) var(--d, 0s);
+  will-change: opacity, transform;
+}
+[data-reveal].in {
+  opacity: 1;
+  transform: none;
+}
+[data-line] {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.4s var(--ease) var(--d, 0s);
+}
+[data-line].in {
+  transform: scaleX(1);
+}
+
+/* word-by-word line mask */
+.mask-line {
+  display: block;
+  overflow: hidden;
+}
+.mask-line > span {
+  display: block;
+  transform: translateY(110%);
+  transition: transform 1.2s var(--ease) var(--d, 0s);
+}
+.in .mask-line > span,
+.mask-line.in > span {
+  transform: none;
+}
+
+@layer components {
+/* ---------- Links ---------- */
+.nav-link .nav-underline {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-out;
+}
+@media (hover: hover) {
+  .nav-link:hover .nav-underline {
+    transform: scaleX(1);
+  }
+}
+
+.alink {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 10px;
+  width: min-content;
+  min-width: 160px;
+  white-space: nowrap;
+}
+.alink::before,
+.alink::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+}
+.alink::before {
+  opacity: 0.25;
+}
+.alink::after {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease);
+}
+.alink svg {
+  transition: transform 0.4s var(--ease);
+}
+@media (hover: hover) {
+  .alink:hover::after {
+    transform: scaleX(1);
+  }
+  .alink:hover svg {
+    transform: translate(2px, -2px);
+  }
+}
+
+/* ---------- Placeholder art (swap for real photos) ---------- */
+.art {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(60% 70% at var(--x, 30%) var(--y, 30%), var(--a), transparent 72%),
+    radial-gradient(80% 90% at 85% 95%, var(--b), transparent 70%), var(--c);
+}
+.art::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.art .art-shape {
+  position: absolute;
+  inset: auto;
+  left: var(--sx, 50%);
+  top: var(--sy, 55%);
+  width: var(--sw, 38%);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: var(--sr, 50%);
+  background: var(--s, rgba(0, 0, 0, 0.35));
+  filter: blur(var(--sb, 28px));
+}
+
+/* ---------- Glow footer ---------- */
+.glow-gradient {
+  background-color: var(--color-neutral-900);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(
+      140% 105% at 70% 120%,
+      var(--color-glow-orange) 0%,
+      var(--color-glow-red) 24%,
+      var(--color-glow-deep) 44%,
+      color-mix(in srgb, var(--color-glow-maroon) 75%, transparent) 64%,
+      transparent 86%
+    ),
+    radial-gradient(
+      60% 60% at 4% 108%,
+      color-mix(in srgb, var(--color-glow-teal) 50%, transparent) 0%,
+      color-mix(in srgb, var(--color-glow-navy) 45%, transparent) 45%,
+      transparent 75%
+    );
+}
+
+/* ---------- Slanted section edges ---------- */
+.slant-top::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--slant) * -1 + 1px);
+  height: var(--slant);
+  background: inherit;
+  clip-path: polygon(0 100%, 100% 0, 100% 100%);
+  pointer-events: none;
+  /* --sp (0→1) is driven by scroll: the angled edge rises into view as the section arrives */
+  transform: translate3d(0, calc((1 - var(--sp, 1)) * 101%), 0);
+  will-change: transform;
+}
+.glow-gradient.slant-top::before {
+  background: var(--color-neutral-900);
+}
+.slant-top-rev::before {
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+}
+
+/* ---------- Marquee ---------- */
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  :before,
+  :after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  [data-reveal],
+  [data-line] {
+    opacity: 1;
+    transform: none;
+  }
+}
