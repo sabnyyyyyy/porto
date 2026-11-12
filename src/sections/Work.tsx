@@ -3,7 +3,8 @@ import { site, work } from '../content'
 import { clamp, onScroll } from '../scroll'
 import { Art, ArrowLink, LabelBar, Reveal } from '../ui'
 
-const TOPS = [50, 90, 130, 170]
+// Sticky offset of card i (40px steps), so any number of cards stacks the same way.
+const topFor = (i: number) => 50 + i * 40
 
 export function Work() {
   const wrap = useRef<HTMLDivElement>(null)
@@ -22,7 +23,7 @@ export function Work() {
         const next = cards[i + 1]
         if (!next) return 0
         const h = c.offsetHeight
-        const gap = next.getBoundingClientRect().top - TOPS[i + 1]
+        const gap = next.getBoundingClientRect().top - topFor(i + 1)
         return clamp(1 - gap / (h * 0.9))
       })
       cards.forEach((c, i) => {
@@ -81,7 +82,7 @@ export function Work() {
                 key={it.title}
                 data-card=""
                 className="w-full origin-top bg-white l:sticky"
-                style={{ top: TOPS[i] }}
+                style={{ top: topFor(i) }}
               >
                 {it.href ? (
                   <a href={it.href} target="_blank" rel="noreferrer" className="block">

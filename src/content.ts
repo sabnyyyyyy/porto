@@ -99,7 +99,7 @@ export const work = {
   label: 'Selected Work',
   meta: '2024 — 2026',
   cta: 'Get In Touch',
-  all: 'See all (04)',
+  all: 'See all (05)',
   items: [
     {
       title: 'Veilio',
@@ -108,6 +108,9 @@ export const work = {
       href: 'https://veilio.fun',
       src: '/images/veilio.png' as string | null,
     },
+    // Karcis: link ke repo karena URL Vercel di repo (karcis-iota.vercel.app) mengembalikan DEPLOYMENT_NOT_FOUND.
+    // Ganti href ke URL live dan isi src dengan screenshot kalau sudah di-deploy.
+    { title: 'Karcis', cat: 'NEAR Event Passes', art: 'ink' as ArtKey, href: 'https://github.com/sabnyyyyyy/karcis', src: null },
     { title: 'ChargeFlow', cat: 'EV Charging Payments', art: 'sea' as ArtKey, href: 'https://chargerflow.vercel.app', src: '/images/chargeflow.png' },
     { title: 'Dental Happy', cat: 'Clinic Website', art: 'sage' as ArtKey, href: 'https://project-pbl-five.vercel.app', src: '/images/dental-happy.png' },
     { title: 'Pokémon Dashboard', cat: 'API Dashboard', art: 'clay' as ArtKey, href: 'https://tugas-api-tau.vercel.app', src: null },
@@ -233,7 +236,7 @@ export const numbers = {
   items: [
     { big: '01', title: 'Frontend', text: 'Interfaces that are responsive, fast and pleasant to use.' },
     { big: '02', title: 'Backend', text: 'APIs, authentication and databases that stay simple and reliable.' },
-    { big: '03', title: 'Web3', text: 'Smart-contract-backed flows, like the escrow and auctions behind veilio.fun.' },
+    { big: '03', title: 'Web3', text: 'Smart-contract-backed flows, like the escrow and auctions behind veilio.fun and the event passes in Karcis.' },
     { big: '04', title: 'Deployment', text: 'Taking a build from my machine to a live domain people can visit.' },
   ],
 }
@@ -242,7 +245,7 @@ export const faq = {
   label: 'FAQ',
   items: [
     { q: 'What do you build?', a: 'Fullstack web products: interfaces, APIs, databases and deployment, with some Web3 experience from veilio.fun.' },
-    { q: 'Which projects are live?', a: 'veilio.fun, ChargeFlow, Dental Happy and a Pokémon API dashboard are live. More code is on GitHub, and some projects stay local and are not published.' },
+    { q: 'Which projects are live?', a: 'veilio.fun, ChargeFlow, Dental Happy and a Pokémon API dashboard are live. Karcis, an event ticketing app on NEAR, is on GitHub. More code is on GitHub, and some projects stay local and are not published.' },
     { q: 'Where do you study?', a: 'I study D3 Information Technology (Teknologi Informasi) at Universitas Brawijaya.' },
     { q: 'What do you do outside of coding?', a: 'In 2026 I am Staff Ahli PSDM at HMPSTI and Wakil Ketua Pelaksana 1 of Sambut Maba TI & TRPL. Since 2025 I lead Brawijaya Web3 Labs.' },
     { q: 'Can we work together?', a: 'Yes, get in touch with a short brief about what you want to build and we can take it from there.' },
